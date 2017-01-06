@@ -5,9 +5,7 @@ const bodyParser = require('body-parser');
 
 var app = express();
 
-var buzzwordsObj = {
-  "buzzwords": []
-};
+var buzzwords = [];
 
 app.use(bodyParser.urlencoded());
 
@@ -16,18 +14,29 @@ app.get('/', (req, res, next)=>{
 });
 
 app.get('/buzzwords', (req, res, next) => {
-  res.send(buzzwordsObj);
+  res.send(buzzwords);
 });
 
 app.post('/buzzword', (req, res, next) => {
-  buzzwordsObj.buzzwords.push(req.body);
-  console.log(req.body);
-  res.send({"success": true});
+  if(req.body.hasOwnProperty('buzzword')){
+    buzzwords.push(req.body);
+    alert(`You just added ${req.body} to your collection`);
+    res.send({"success": true});
+  }else{
+    res.send('Nice try, poopy-headed nincompoop');
+  }
 });
 
 // app.put('/buzzword', (req, res, next) => {
 
 // });
+
+app.delete('/buzzword', (req, res, next) =>{
+  var newBuzzWord = req.body;
+  for (var i = 0; i < buzzwordsObj.length; i++) {
+    if(buzzwordsObj[i].buzzwords === newBuzzWord.buzzword
+  }
+});
 
 
 
